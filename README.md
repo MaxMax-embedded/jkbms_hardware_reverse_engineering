@@ -6,11 +6,33 @@ quite interesting. This repository attemps to give an overview about the Hardwar
 
 ##Microcontrollers
 
-The Brain of the BMS is a CH32F103C8T6 which is a clone of the popular STM32F103 microcontroller. There are 
-no obious probe points visible to access the SWD debugging interface or a UART shell. The CH32 is clocked by a 8Mhz quartz
+The Brain of the BMS is a CH32F103C8T6 which is a clone of the popular STM32F103 microcontroller.Probe points are discussed in the next subchapter.
+The CH32 is clocked by a 8Mhz quartz
 
 Bluetooth connectivity is provided by a BK3432 Bluetooth SoC in form of a soldered module. There are just a
 few connections to the PCB so it can be assumed that the module only handles communication and no other control tasks.
+
+###Testpoinnts
+Above the PCB transformer are a few probe points that are used for testing/programming during production
+The SWD interface to access the CH32 is on the left side with the following pinout from top to bottom:
+
+Pin|Function
+-----------
+GND | Ground of the CH32, Shift Registers etc.
+SWDIO | Debugger Data Pin
+SWCLK | Debugger Clock Pin
+VCC | most likely 3V3 (not measured yet)
+
+
+On the inner side are additional testpoints with no clear function at the time of writing
+
+Pin|Function
+-----------
+Pin 1| Pin 9 Current Sense IC
+Pin 2| Pin 8 Current Sense IC
+Pin 3| Connected to the inner Pins of the PCB Trafo (PCB Edge side) and Source of 1N60G N-FET (likely Battery Ground)
+Pin 4| Pin 4 Current Sense IC
+Pin 5| Pin 1 Current Sense IC? Vin 3V3 regulator for current sense IC+ Input for Switching converter next to them?
 
 ##Input Stage
 Each cell input has a small RC filter with a 10mOhm. This seems to be more like an inrush current limitation and I cant realy see
@@ -44,7 +66,14 @@ Even more interesting then the balancing circuit is the supply system for the CH
 PCB based transformer in use for the galvanic isolation to allow the supply voltage of the microcontroller to float with the cell
 voltage that is currently switched to that ground potential. The working principle and control scheme are not clear yet
 
+It looks like there are two switching regulators next to the PCB transformer. The lower one is used to generate the 3V3? supply for the uCs, Shift registers
+and EEPROM
+
 ##Current Sensing and Low Side Battery Switch
 
 There are THT resistors mounted next to a mosfet which may hint to a soft start/precharge functionality?
 There are saveral R001 Resistors which seem to be used as shunts for current measurement
+One Side of the bidirectional switches is directly controlled by BAT+
+
+##Power on Button
+The Power on Button is powered by the same DCDC powering the current sense IC/co processor and connected to PA1 of the CH32 via an optocoupler for isolation.
