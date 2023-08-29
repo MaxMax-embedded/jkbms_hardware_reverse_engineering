@@ -17,7 +17,7 @@ Above the PCB transformer are a few probe points that are used for testing/progr
 The SWD interface to access the CH32 is on the left side with the following pinout from top to bottom:
 
 | Pin | Function |
-| ----------- |
+| ---- | ------- |
 | GND | Ground of the CH32, Shift Registers etc.|
 | SWDIO | Debugger Data Pin|
 | SWCLK | Debugger Clock Pin|
@@ -27,7 +27,7 @@ The SWD interface to access the CH32 is on the left side with the following pino
 On the inner side are additional testpoints with no clear function at the time of writing
 
 | Pin | Function |
-|-----------|
+|----- | ------|
 | Pin 1 | Pin 9 Current Sense IC |
 | Pin 2 | Pin 8 Current Sense IC |
 | Pin 3 | Connected to the inner Pins of the PCB Trafo (PCB Edge side) and Source of 1N60G N-FET (likely Battery Ground) |
